@@ -119,16 +119,16 @@
     "readTime": "10 min",
     "content": "content/vibecoding/01-progressive-spec-guide.md"
   },
-  {
-    "id": "news-1",
-    "title": "AI 每日速递 | 2026-06-11",
-    "excerpt": "OpenAI 发布新一代多模态模型、DeepMind 开源推理框架、国内 AI 动态速递。",
-    "date": "2026-06-11",
-    "tags": ["AI新闻", "OpenAI", "DeepMind"],
-    "category": "dailynews",
-    "chapter": "",
-    "author": "King Cobra",
-    "readTime": "5 min",
-    "content": "content/dailynews/2026-06-11-ai-news.md"
-  }
+      {
+        "id": "news-1",
+        "title": "AI 每日速递 | 2026-06-11",
+        "excerpt": "Anthropic发布Claude Opus 4.6，OpenAI宣布GPT-5进入测试，字节跳动发布豆包大模型2.0",
+        "date": "2026-06-11",
+        "tags": ["AI新闻", "Anthropic", "OpenAI", "Google", "字节跳动", "苹果"],
+        "category": "dailynews",
+        "chapter": "",
+        "author": "King Cobra",
+        "readTime": "5 min",
+        "content": "content/dailynews/2026-06-11-ai-news.md"
+      }
 ]
