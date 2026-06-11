@@ -503,8 +503,8 @@
           <section class="mb-8 animate-fade-in-up stagger-2">
             <div class="flex flex-wrap items-center gap-3">
               <span class="text-xs font-mono text-muted uppercase tracking-wider">categories:</span>
-              ${renderCategoryBadge(null, activeCategory)}
-              ${['langchain', 'vibecoding'].map(c => renderCategoryBadge(c, activeCategory)).join('')}
+              <button class="px-4 py-2 rounded-lg text-sm font-medium border border-border ${activeCategory === null ? '!border-purple-500 text-purple-400 bg-purple-500/10' : 'text-muted hover:text-text hover:border-purple-500/50'} transition-all cursor-pointer" onclick="window.location.hash='#/'">全部</button>
+              ${[...new Set(allPosts.map(p => p.category))].map(c => renderCategoryBadge(c, activeCategory)).join('')}
             </div>
           </section>
 
