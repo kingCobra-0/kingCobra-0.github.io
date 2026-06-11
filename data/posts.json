@@ -122,9 +122,9 @@
   {
     "id": "news-1",
     "title": "AI 每日速递 | 2026-06-11",
-    "excerpt": "Anthropic发布Claude Opus 4.6，OpenAI宣布GPT-5进入测试，字节跳动发布豆包大模型2.0",
+    "excerpt": "Anthropic发布Windows版Claude Cowork+YOLO模式，OpenAI更新Responses API，阶跃星辰Step 3.7 Flash登顶榜单，微信开放AI智能体平台",
     "date": "2026-06-11",
-    "tags": ["AI新闻", "Anthropic", "OpenAI", "Google", "字节跳动", "苹果"],
+    "tags": ["AI新闻", "Anthropic", "OpenAI", "阶跃星辰", "微信AI", "华为云"],
     "category": "dailynews",
     "chapter": "",
     "author": "King Cobra",
