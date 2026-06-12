@@ -27,3 +27,30 @@ document.addEventListener('click', (e) => {
     }
   }
 });
+
+// Hero 聚光灯跟随鼠标
+let spotlightRaf = 0;
+let spotlightTarget = { x: 0, y: 0 };
+let spotlightCurrent = { x: 0, y: 0 };
+
+document.addEventListener('mousemove', (e) => {
+  const card = document.getElementById('hero-spotlight');
+  if (!card) return;
+  const rect = card.getBoundingClientRect();
+  spotlightTarget.x = ((e.clientX - rect.left) / rect.width) * 100;
+  spotlightTarget.y = ((e.clientY - rect.top) / rect.height) * 100;
+});
+
+function updateSpotlight() {
+  const dx = spotlightTarget.x - spotlightCurrent.x;
+  const dy = spotlightTarget.y - spotlightCurrent.y;
+  spotlightCurrent.x += dx * 0.08;
+  spotlightCurrent.y += dy * 0.08;
+  const card = document.getElementById('hero-spotlight');
+  if (card) {
+    card.style.setProperty('--spotlight-x', spotlightCurrent.x + '%');
+    card.style.setProperty('--spotlight-y', spotlightCurrent.y + '%');
+  }
+  spotlightRaf = requestAnimationFrame(updateSpotlight);
+}
+requestAnimationFrame(updateSpotlight);

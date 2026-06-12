@@ -60,14 +60,16 @@ async function renderHome(activeTag, activeCategory) {
   return `
     ${!isDetail ? `
       <section class="mb-12 animate-fade-in-up stagger-1">
-        <div class="relative rounded-2xl overflow-hidden border border-border p-8 md:p-12">
-          <div class="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-cyan-600/10 to-pink-600/20 animate-pulse-slow"></div>
-          <div class="absolute -top-24 -right-24 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
-          <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl"></div>
+        <div id="hero-spotlight" class="spotlight-card relative rounded-2xl overflow-hidden border border-border p-8 md:p-12">
+          <div class="absolute inset-0 bg-gradient-to-br from-purple-600/15 via-cyan-600/08 to-pink-600/15"></div>
+          <div class="absolute -top-32 -right-32 w-80 h-80 bg-purple-500/08 rounded-full blur-3xl"></div>
+          <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-cyan-500/08 rounded-full blur-3xl"></div>
           <div class="hero-scanline"></div>
           <div class="relative z-10">
-            <p class="text-purple-400 font-mono text-sm mb-3"><span class="text-muted">const</span> blog <span class="text-muted">=</span> <span class="text-cyan-400">new</span> <span class="text-pink-400">Blog</span><span class="text-muted">(</span><span class="text-green-400">'${CONFIG.author}'</span><span class="text-muted">)</span>;<span class="cursor-blink"></span></p>
-            <h1 class="text-3xl md:text-5xl font-bold mb-4 tracking-tight leading-tight">Backend & <span class="text-gradient">AI</span></h1>
+            <p class="text-purple-400 font-mono text-sm mb-4"><span class="text-muted">const</span> blog <span class="text-muted">=</span> <span class="text-cyan-400">new</span> <span class="text-pink-400">Blog</span><span class="text-muted">(</span><span class="text-green-400">'${CONFIG.author}'</span><span class="text-muted">)</span>;<span class="cursor-blink"></span></p>
+            <h1 class="text-4xl md:text-6xl font-bold mb-5 tracking-tighter leading-none">
+              <span class="glitch-text" data-text="Backend">Backend</span><span class="text-muted"> & </span><span class="text-gradient">AI</span>
+            </h1>
             <p class="text-muted text-lg max-w-2xl leading-relaxed mb-6">后端架构、LangChain、AI Agent 的工程实践与思考。</p>
             <div class="flex flex-wrap gap-3">
               <span class="px-4 py-2 bg-surface border border-border rounded-full text-sm text-muted">${allPosts.length} 文章</span>
