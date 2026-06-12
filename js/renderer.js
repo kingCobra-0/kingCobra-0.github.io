@@ -44,13 +44,9 @@ async function renderHome(activeTag, activeCategory) {
   let headerHtml = '';
   if (isDetail) {
     headerHtml = `
-      <div class="mb-8 animate-fade-in-up">
-        <button onclick="window.location.hash='#/'" class="flex items-center gap-2 text-sm text-muted hover:text-text transition-colors mb-4 group" aria-label="返回首页">
-          <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-          返回
-        </button>
+      <div class="mb-4 animate-fade-in-up">
         <h1 class="text-3xl md:text-4xl font-bold mb-2"><span class="text-gradient">${escapeHtml(sectionLabel)}</span></h1>
-        <p class="text-muted">共 <strong class="text-text">${filteredPosts.length}</strong> 篇文章</p>
+        <p class="text-muted text-sm">共 <strong class="text-text">${filteredPosts.length}</strong> 篇文章</p>
       </div>
     `;
   }
@@ -101,7 +97,12 @@ async function renderHome(activeTag, activeCategory) {
     <section class="animate-fade-in-up stagger-3">
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-xs font-mono text-muted uppercase tracking-wider flex items-center gap-2"><span class="w-1 h-4 ${isDetail ? 'bg-purple-500' : 'bg-cyan-500'} rounded-full"></span>${isDetail ? 'articles' : 'recent'}</h2>
-        ${!isDetail ? `<a href="#/library" class="text-xs font-mono text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-1 group">查看全部 <svg class="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>` : ''}
+        ${!isDetail ? `<a href="#/library" class="text-xs font-mono text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-1 group">查看全部 <svg class="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>` : `
+          <button onclick="window.location.hash='#/'" class="flex items-center gap-1.5 text-xs font-mono text-muted hover:text-purple-400 transition-colors border border-border hover:border-purple-500/50 rounded-lg px-3 py-1.5 group" aria-label="返回首页">
+            <svg class="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            返回首页
+          </button>
+        `}
       </div>
       <div class="space-y-4">
         ${filteredPosts.length > 0 ? filteredPosts.slice(0, isDetail ? filteredPosts.length : 4).map(p => `
