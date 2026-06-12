@@ -96,6 +96,8 @@ async function renderHome(activeTag, activeCategory) {
       </section>
     ` : ''}
 
+    ${headerHtml}
+
     <section class="animate-fade-in-up stagger-3">
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-xs font-mono text-muted uppercase tracking-wider flex items-center gap-2"><span class="w-1 h-4 ${isDetail ? 'bg-purple-500' : 'bg-cyan-500'} rounded-full"></span>${isDetail ? 'articles' : 'recent'}</h2>
