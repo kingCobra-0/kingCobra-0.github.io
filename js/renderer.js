@@ -64,8 +64,9 @@ async function renderHome(activeTag, activeCategory) {
           <div class="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-cyan-600/10 to-pink-600/20 animate-pulse-slow"></div>
           <div class="absolute -top-24 -right-24 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
           <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl"></div>
+          <div class="hero-scanline"></div>
           <div class="relative z-10">
-            <p class="text-purple-400 font-mono text-sm mb-3">const blog = new Blog('${CONFIG.author}');</p>
+            <p class="text-purple-400 font-mono text-sm mb-3"><span class="text-muted">const</span> blog <span class="text-muted">=</span> <span class="text-cyan-400">new</span> <span class="text-pink-400">Blog</span><span class="text-muted">(</span><span class="text-green-400">'${CONFIG.author}'</span><span class="text-muted">)</span>;<span class="cursor-blink"></span></p>
             <h1 class="text-3xl md:text-5xl font-bold mb-4 tracking-tight leading-tight">Backend & <span class="text-gradient">AI</span></h1>
             <p class="text-muted text-lg max-w-2xl leading-relaxed mb-6">后端架构、LangChain、AI Agent 的工程实践与思考。</p>
             <div class="flex flex-wrap gap-3">
@@ -100,7 +101,7 @@ async function renderHome(activeTag, activeCategory) {
       </div>
       <div class="space-y-4">
         ${filteredPosts.length > 0 ? filteredPosts.slice(0, isDetail ? filteredPosts.length : 4).map(p => `
-          <article class="card-hover bg-surface border border-border rounded-xl p-6 cursor-pointer group" onclick="window.location.hash='#/post/${p.id}'">
+          <article class="card-hover card-grid-line bg-surface border border-border rounded-xl p-6 cursor-pointer group" onclick="window.location.hash='#/post/${p.id}'">
             <div class="flex items-start justify-between gap-4">
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2 mb-2">
