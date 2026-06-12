@@ -224,29 +224,38 @@ function renderLibrary(activeCategory) {
     postsToShow = allPosts.filter(p => p.category === currentCategory);
   }
 
-  // Group by category -> chapter
+  // Separate categories into "has chapters" and "no chapters"
+  const catHasChapters = {};
+  categories.forEach(c => {
+    const catPosts = currentCategory === 'all' ? allPosts.filter(p => p.category === c) : postsToShow.filter(p => p.category === c);
+    catHasChapters[c] = catPosts.some(p => p.chapter && p.chapter.trim() !== '');
+  });
+
+  // Group by category -> chapter (only for categories with chapters)
   const grouped = {};
   postsToShow.forEach(p => {
     const cat = p.category;
-    const chap = p.chapter || '其他';
+    const chap = p.chapter && p.chapter.trim() !== '' ? p.chapter : '';
     if (!grouped[cat]) grouped[cat] = {};
     if (!grouped[cat][chap]) grouped[cat][chap] = [];
     grouped[cat][chap].push(p);
   });
 
-  // Sort chapters within each category
+  // Sort chapters within each category (only non-empty keys)
   Object.keys(grouped).forEach(cat => {
-    const sortedChapters = {};
-    Object.keys(grouped[cat]).sort(sortChapters).forEach(chap => {
-      sortedChapters[chap] = grouped[cat][chap];
-    });
-    grouped[cat] = sortedChapters;
+    const sorted = {};
+    Object.keys(grouped[cat]).filter(k => k !== '').sort(sortChapters).forEach(k => { sorted[k] = grouped[cat][k]; });
+    // Put empty-key posts at the end
+    if (grouped[cat]['']) sorted[''] = grouped[cat][''];
+    grouped[cat] = sorted;
   });
+
+  const categoryLabels = CONFIG.categoryLabels || {};
 
   return `
     <div class="mb-8 animate-fade-in-up">
       <h1 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight"><span class="text-gradient">知识库</span></h1>
-      <p class="text-muted max-w-2xl leading-relaxed">按章节分类组织的完整文章索引，共 <strong class="text-text">${allPosts.length}</strong> 篇文章。</p>
+      <p class="text-muted max-w-2xl leading-relaxed">按分类组织的完整文章索引，共 <strong class="text-text">${allPosts.length}</strong> 篇文章。</p>
     </div>
 
     <section class="mb-8 animate-fade-in-up stagger-1">
@@ -254,15 +263,47 @@ function renderLibrary(activeCategory) {
         <span class="text-xs font-mono text-muted uppercase tracking-wider">categories:</span>
         <button class="px-4 py-2 rounded-lg text-sm font-medium border border-border ${currentCategory === 'all' ? '!border-purple-500 text-purple-400 bg-purple-500/10' : 'text-muted hover:text-text hover:border-purple-500/50'} transition-all cursor-pointer" onclick="window.location.hash='#/library'">全部</button>
         ${categories.map(c => `
-          <button class="px-4 py-2 rounded-lg text-sm font-medium border border-border ${currentCategory === c ? '!border-purple-500 text-purple-400 bg-purple-500/10' : 'text-muted hover:text-text hover:border-purple-500/50'} transition-all cursor-pointer" onclick="window.location.hash='#/library/${c}'">${CONFIG.categoryLabels[c] || c}</button>
+          <button class="px-4 py-2 rounded-lg text-sm font-medium border border-border ${currentCategory === c ? '!border-purple-500 text-purple-400 bg-purple-500/10' : 'text-muted hover:text-text hover:border-purple-500/50'} transition-all cursor-pointer" onclick="window.location.hash='#/library/${c}'">${categoryLabels[c] || c}</button>
         `).join('')}
       </div>
     </section>
 
     <div class="space-y-8 animate-fade-in-up stagger-2">
       ${Object.keys(grouped).sort().map(cat => {
-        const catLabel = CONFIG.categoryLabels[cat] || cat;
-        const chapters = grouped[cat];
+        const catLabel = categoryLabels[cat] || cat;
+        const catData = grouped[cat];
+        const hasChapters = catHasChapters[cat];
+
+        // Flat list (no chapters)
+        if (!hasChapters) {
+          return `
+            <section class="bg-surface border border-border rounded-xl overflow-hidden">
+              <div class="px-6 py-4 border-b border-border bg-bg/50">
+                <h2 class="text-lg font-bold text-text flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                  ${catLabel}
+                  <span class="text-xs font-mono text-muted font-normal ml-2">${Object.values(catData).flat().length} 篇</span>
+                </h2>
+              </div>
+              <div class="divide-y divide-border">
+                ${Object.values(catData).flat().map(p => `
+                  <article class="group cursor-pointer" onclick="window.location.hash='#/post/${p.id}'">
+                    <div class="flex items-start gap-3 p-4 hover:bg-bg transition-colors">
+                      <span class="text-xs text-muted font-mono mt-0.5 whitespace-nowrap">${p.date}</span>
+                      <div class="flex-1 min-w-0">
+                        <h4 class="text-sm font-medium text-text group-hover:text-purple-400 transition-colors">${escapeHtml(p.title)}</h4>
+                        <p class="text-xs text-muted line-clamp-1 mt-1">${escapeHtml(p.excerpt)}</p>
+                      </div>
+                      <span class="text-xs text-muted font-mono whitespace-nowrap">${p.readTime}</span>
+                    </div>
+                  </article>
+                `).join('')}
+              </div>
+            </section>
+          `;
+        }
+
+        // Chapter grouping (has chapters)
         return `
           <section class="bg-surface border border-border rounded-xl overflow-hidden">
             <div class="px-6 py-4 border-b border-border bg-bg/50">
@@ -272,14 +313,14 @@ function renderLibrary(activeCategory) {
               </h2>
             </div>
             <div class="divide-y divide-border">
-              ${Object.keys(chapters).map(chap => `
+              ${Object.keys(catData).filter(k => k !== '').map(chap => `
                 <div class="p-6">
                   <h3 class="text-sm font-mono text-purple-400 mb-4 flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     ${escapeHtml(chap)}
                   </h3>
                   <div class="space-y-3 ml-6">
-                    ${chapters[chap].map(p => `
+                    ${catData[chap].map(p => `
                       <article class="group cursor-pointer" onclick="window.location.hash='#/post/${p.id}'">
                         <div class="flex items-start gap-3 p-3 rounded-lg hover:bg-bg transition-colors">
                           <span class="text-xs text-muted font-mono mt-0.5 whitespace-nowrap">${p.date}</span>
