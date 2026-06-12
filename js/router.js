@@ -33,6 +33,14 @@ async function render() {
     title = 'King Cobra — Backend & AI';
   } else if (hash.startsWith('#/post/')) {
     const id = hash.replace('#/post/', '');
+    // 立刻显示加载骨架屏
+    main.innerHTML = `<div class="animate-fade-in-up">
+      <div class="flex flex-col items-center justify-center py-20 gap-4">
+        <div class="w-8 h-8 border-2 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
+        <p class="text-muted font-mono text-sm">加载文章中...</p>
+      </div>
+    </div>`;
+    document.title = '加载中... | King Cobra';
     page = await renderPost(id);
     const post = allPosts.find(p => p.id === id);
     title = post ? `${post.title} | King Cobra` : 'Not Found | King Cobra';

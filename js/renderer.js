@@ -87,7 +87,7 @@ async function renderHome(activeTag, activeCategory) {
       <section class="mb-8 animate-fade-in-up stagger-2">
         <div class="flex flex-wrap items-center gap-2">
           <span class="text-xs font-mono text-muted uppercase tracking-wider mr-2">tags:</span>
-          <button class="px-3 py-1 rounded-full text-xs font-medium font-mono border border-border text-muted hover:tag-hover transition-all duration-300 cursor-pointer bg-purple-500/10 border-purple-500 text-purple-400" onclick="window.location.hash='#/'">all</button>
+          <button class="px-3 py-1 rounded-full text-xs font-medium font-mono border border-border text-muted hover:tag-hover transition-all duration-300 cursor-pointer ${activeTag ? 'bg-purple-500/10 border-purple-500 text-purple-400' : ''}" onclick="window.location.hash='#/'">all</button>
           ${allTags.map(t => renderTagBadge(t, activeTag)).join('')}
         </div>
       </section>
