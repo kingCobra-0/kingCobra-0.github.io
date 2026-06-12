@@ -130,5 +130,17 @@
     "author": "King Cobra",
     "readTime": "5 min",
     "content": "content/dailynews/2026-06-11-ai-news.md"
+  },
+  {
+    "id": "vibe-2",
+    "title": "AI写代码总走捷径？agent-skills 的工程化实践",
+    "excerpt": "Addy Osmani开源的agent-skills项目：把高级工程师的思考框架封装成AI可调用的技能包，覆盖需求澄清到上线发布的完整工程流程。",
+    "date": "2026-06-12",
+    "tags": ["AI Coding", "agent-skills", "工程化", "VibeCoding"],
+    "category": "vibecoding",
+    "chapter": "第二章",
+    "author": "King Cobra",
+    "readTime": "8 min",
+    "content": "content/vibecoding/02-agent-skills-engineering.md"
   }
 ]
