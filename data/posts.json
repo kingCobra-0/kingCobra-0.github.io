@@ -166,5 +166,17 @@
     "author": "King Cobra",
     "readTime": "5 min",
     "content": "content/dailynews/2026-06-12-ai-news.md"
+  },
+  {
+    "id": "news-3",
+    "title": "AI 每日速递 | 2026-06-13",
+    "excerpt": "OpenAI革新Codex速率限制，月之暗面开源Kimi K2.7 Code，国内大厂AI高考志愿Agent全面开战",
+    "date": "2026-06-13",
+    "tags": ["AI新闻"],
+    "category": "dailynews",
+    "chapter": "",
+    "author": "King Cobra",
+    "readTime": "5 min",
+    "content": "content/dailynews/2026-06-13-ai-news.md"
   }
 ]
